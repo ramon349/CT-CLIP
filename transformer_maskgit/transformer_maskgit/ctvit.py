@@ -523,3 +523,9 @@ class CTViT(nn.Module):
             return loss, returned_recon
 
         return loss
+    def encode_image(self,img): 
+        enc_image = self.forward(img,return_encoded_tokens=True)
+        enc_image = torch.mean(enc_image, dim=1)
+        enc_image = enc_image.view(enc_image.shape[0], -1)
+        return enc_image
+

@@ -899,3 +899,13 @@ class CTCLIP(nn.Module):
             loss = loss + multiview_cl_loss.mean() * multiview_loss_weight
 
         return loss
+    
+    def  encode_iamge(self,image): 
+        enc_image= self.visual_transformer(image, return_encoded_tokens=True)
+
+        enc_image = torch.mean(enc_image, dim=1)
+
+        enc_image = enc_image.view(enc_image.shape[0], -1)
+
+        return enc_image
+
